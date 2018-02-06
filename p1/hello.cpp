@@ -16,16 +16,23 @@
  * */
 
 #include <iostream> //Adds iostream library
-usng std::cin; //Helps us reduce use of std::cin
+using std::cin; //Helps us reduce use of std::cin
 using std::cout; //Helps us reduce use of std::cout
 #include <string> //Adds string library
 using std::string; //not sure what this actually does  2/5/18 //Update: I believe its to allow is to use the string variable, still unsure.
 int main(){ //Where the code goes inside
-	string name; //String varible where name will be stored.
+	string yourName; //String varible where name will be stored.
 	string relative; //String variable where relative will be stored.
 	cout << "Welcome to my first project. Please enter your name: ";
-	cin >> name;
-
+	//cin >> name; //note this is what I originally planned to use.
+	getline(cin, yourName); 
+	/* NOTE what ^this code does is it says 
+	 * take the inputted line from the compiler 
+	 * using the function cin, 
+	 * and then store that into name */
+	cout << "Enter the name of your relative: ";
+	getline(cin, relative); //Gets relative's name and stores it.
+	cout << "Hello. My name is " << yourName << ". You killed my " << relative << ". Prepare to die.\n";
 
 
 	return 0; //Tells us the code works
