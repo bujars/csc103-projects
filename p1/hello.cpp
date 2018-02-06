@@ -11,3 +11,23 @@
  */
 
 
+/* NOTE resources used: 
+ * Project webpage to get all the code above main.
+ * */
+
+#include <iostream> //Adds iostream library
+usng std::cin; //Helps us reduce use of std::cin
+using std::cout; //Helps us reduce use of std::cout
+#include <string> //Adds string library
+using std::string; //not sure what this actually does  2/5/18 //Update: I believe its to allow is to use the string variable, still unsure.
+int main(){ //Where the code goes inside
+	string name; //String varible where name will be stored.
+	string relative; //String variable where relative will be stored.
+	cout << "Welcome to my first project. Please enter your name: ";
+	cin >> name;
+
+
+
+	return 0; //Tells us the code works
+}
+
