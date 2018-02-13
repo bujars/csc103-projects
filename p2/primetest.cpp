@@ -26,11 +26,31 @@ To chcek if a number is prime, we should be able to see if any of the number is 
  */
 
 
- /* Thus might help for when to stop the loop
- unsigned long n;
- while(cin >> n){
-   //do stuff
- }
- */
+ /* Thus might help for when to stop the loop*/
+ //unsigned long n;
+	int n = 6755;
+
+	//while(cin >> n){
+ 	//do stuff
+ 	if ( (n == 2) || (n == 3) || (n==5) || (n==7) || (n==11))
+		cout << 1 << endl;
+	else if(((n%2 == 0) && (n != 2)) || (n==1) || (n==0))	
+ 		cout << 0 << endl; //For non-prime values
+	else if ((n%3 == 0) || (n%5 == 0) || (n%7 == 0) || (n%11 == 0))
+ 		cout << 0 << endl;
+	else if(n > 2){
+		int divide = 2;
+		while(divide < n){
+			if(n%divide==0){
+				cout << 0 << endl;
+			}
+			divide++;
+		}
+		divide = 2;
+	}
+	else {
+		cout << 1 << endl;
+ 	}
+ //}
 	return 0;
 }
