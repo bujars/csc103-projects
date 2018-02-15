@@ -26,15 +26,47 @@ To chcek if a number is prime, we should be able to see if any of the number is 
  */
 
 
+	/* NOTE NOTE NOTE: Brute Force Attmept 2 */
+	int n;
+	while(cin >> n ){
+		int divisor = n-1;
+		int isPrime = 1;
+		//int c = 1;
+		if(n <= 1)
+			isPrime = 0;
+		while(divisor > 1 && isPrime != 0){
+			if(n%divisor == 0 || n%2 == 0){
+				isPrime = 0;
+	//			cout << "This many times" << divisor << endl; /* TO check how many times this conditional is running.*/ 
+				//++c;
+				break;
+			}
+			--divisor;
+		}
+		if(isPrime == 0)
+			cout << 0 << endl;
+		else 
+			cout << 1 << endl;
+	}
+	
+#if 0
+	/* NOTE NOTE How to make this code simpliar by reversing the steps? */
+	int isPrime = 0; //Let start off by saying the value is not prime, and looking for the prime values
+	int divisor = 3; //We dont want 1(can be only 1 which makes it prime), or 2 (makes it even)
+	while(divisor < n && isPrime == 0){
+		if()
+#endif
+
  /* Thus might help for when to stop the loop*/
  //unsigned long n;
+#if 0
 	int n = 6755;
 
 	//while(cin >> n){
  	//do stuff
  	if ( (n == 2) || (n == 3) || (n==5) || (n==7) || (n==11))
 		cout << 1 << endl;
-	else if(((n%2 == 0) && (n != 2)) || (n==1) || (n==0))	
+	else if(((n%2 == 0) && (n != 2)) || (n==1) || (n==0))
  		cout << 0 << endl; //For non-prime values
 	else if ((n%3 == 0) || (n%5 == 0) || (n%7 == 0) || (n%11 == 0))
  		cout << 0 << endl;
@@ -52,5 +84,7 @@ To chcek if a number is prime, we should be able to see if any of the number is 
 		cout << 1 << endl;
  	}
  //}
+
+ #endif
 	return 0;
 }
