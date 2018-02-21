@@ -35,7 +35,7 @@ To chcek if a number is prime, we should be able to see if any of the number is 
 		if(n <= 1)
 			isPrime = 0;
 		while(divisor > 1 && isPrime != 0){
-			if(n%divisor == 0 || n%2 == 0){
+			if(n%2 == 0 || n% divisor ==0){
 				isPrime = 0;
 	//			cout << "This many times" << divisor << endl; /* TO check how many times this conditional is running.*/ 
 				//++c;
