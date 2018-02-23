@@ -29,6 +29,7 @@ To chcek if a number is prime, we should be able to see if any of the number is 
 	/* NOTE NOTE NOTE: Brute Force Attmept 2 */
 	int n;
 	while(cin >> n ){
+		//n = sqrt(n);
 		int divisor = n-1;
 		int isPrime = 1;
 		//int c = 1;
