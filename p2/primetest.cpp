@@ -32,6 +32,7 @@ To chcek if a number is prime, we should be able to see if any of the number is 
 		//n = sqrt(n);
 		int divisor = n-1;
 		int isPrime = 1;
+		//cout << "The value of prime" << isPrime << endl;
 		//int c = 1;
 		if(n <= 1)
 			isPrime = 0;
@@ -44,6 +45,7 @@ To chcek if a number is prime, we should be able to see if any of the number is 
 			}
 			--divisor;
 		}
+		//cout << "The value of prime" << isPrime << endl;
 		if(isPrime == 0)
 			cout << 0 << endl;
 		else 
