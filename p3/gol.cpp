@@ -37,13 +37,19 @@ string initfilename = "/tmp/gol-world-current"; /* read initial state from here.
 
 /* NOTE: you don't have to write these functions -- this is just how
  * I chose to organize my code. */
-size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g);
-void update();
+
+//Pasrt you can ignore from skeleton.
+size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g); //count neighbors of cell i, j on grid g
+void update(); //transform the old version of the world into the new one
 int initFromFile(const string& fname); /* read initial state into vectors. */
-void mainLoop();
-void dumpState(FILE* f);
+void mainLoop(); //update state, write state, sleep, repeat...
+void dumpState(FILE* f); //write the state to a file
 
 char text[3] = ".O";
+
+
+vector<vector<bool> > world;
+
 
 int main(int argc, char *argv[]) {
 	// define long options
@@ -57,13 +63,16 @@ int main(int argc, char *argv[]) {
 	// process options:
 	char c;
 	int opt_index = 0;
+	
+	//Parts in Main that you must keep, but don't worry about it. Just know what it accomplishes  
 	while ((c = getopt_long(argc, argv, "hs:w:f:", long_opts, &opt_index)) != -1) {
 		switch (c) {
-			case 'h':
+			case 'h': //If someone gives -h or --help, it just prints a help screen
 				printf(usage,argv[0]);
 				return 0;
-			case 's':
-				initfilename = optarg;
+			case 's': //-s or --speed
+				//have to open this to see the dots and 0s
+				initfilename = optarg; //This is the argument after -s
 				break;
 			case 'w':
 				wfilename = optarg;
@@ -77,6 +86,9 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
+	//cin >> file
+	//stdin >> wfile; 
+
 	/* NOTE: at this point wfilename initfilename and max_gen
 	 * are all set according to the command line. */
 	/* If you wrote the initFromFile function, call it here: */
@@ -85,13 +97,73 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
+//Counting neighbors of cell i,j on grid g:
+//not vectors are v[i][j] i = rows j = columns 
+size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& world){
+	for(size_t a = 0, a < world.size(); a++){
+		
+	}
+
+}
+
+/* NOTE NOTE NOTE: This is where I bleive the initFromFile(initfilename) function is called. I believe this program is a little similar to the gravity program.... wher eyou input the text name, give it to the program, the program generates the output and then the it is played/presented on the screen. */
+int initFromFile(const string& fname){ /* read initial state into vectors. */
+	//This should be global?... //vector<vector<bool> > world;
+	//NOTE NOTE NOTE its wfname because it was already set...
+	FILE* f = fopen(wfname.c_str(), "rb"); //Make sure you cin the file name...
+	world.push_back(vector<bool>()); //add a new row....why is this outside the loop? how do we add more?????
+	size_t rows = 0; //Curent row getting filled
+	while(fread(&c, 1, 1, f))
+	{
+		if(cin == "\n"){
+			rows++;
+			world.push_back(vector<bool>());
+		/*NOTE NOTE NOTE this is adding new rows when a new line is deteced, since we are going row by row. */
+		}
+		else if(c == '.'){ //if the current character we are reading is a dot,
+			world[rows].push_back(false); //set it to false, or in this case dead
+		}
+		else {
+			world[rows].push_back(true); //set it to true, or in this case alive
+		}
+	}
+	fclose(f); 
+
+	return 0;
+}
+
+void update() //transform the old version of the world into the new one
+{
+	//AGAIN notices the wfname as this should be the file name variable that was already set at the start.....
+	FILE* f = fopen(wfname.c_str(), "wb");
+	rewind(f); //this is so that we start from the beginning of each file. 
+	char c = ".";
+	fwrite(&c, 1, 1, f);
+	fclose();
+}
+
+
 void mainLoop() {
 	/* TODO: write this */
 	/* update, write, sleep */
+	//Update means get the new positions of the .0
+	//write means reopen the file and rewind all the way up and the transfer the code into .0 
+	//sleep means take a pause
+	//sleep(1); //so we take a break
+	//max_gen must be inputted im assuming??
 	if (max_gen == 0) {
 		/* make one generation update per second */
 	} else {
 		/* go through generations as fast as you can until
 		 * max_gen is reached... */
 	}
+	
+
+
 }
+
+
+
+
+
+
