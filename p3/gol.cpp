@@ -7,11 +7,22 @@
  * NOT mean it is okay to COPY THAT SOURCE.  What you submit here **MUST BE
  * YOUR OWN WORK**.
  * References:
+ * 
  * TA: Ben Wu
- * stackoverflow.com/questions/19672301/checking-out-of-bounds-in-java  //Helped me realized that I need to make sure my indexes are within 0, the start of the grid, or the vector, column/row length
- *
+ * stackoverflow.com/questions/19672301/checking-out-of-bounds-in-java  
+ * IDEA: //Helped me realized that I need to make sure my indexes are within 0, the start of the grid, or the vector, column/row length
+ * stackoverflow.com/questions/9694838/how-to-implement-2d-vector-array 
+ * IDEA: //Helped me form the 2D array
+ * groups.google.com/forum/m/#!topic/comp/lang.java.help/qshQBJ-1rFk 
+ * IDEA://Helped me realized that the neighbor count can be greatly simplified -- then went for Skeith's help 3/6/18
+ * en.cppreference.com/w/cpp/types/size_t 
+ * IDEA: //Help me figure out the negative fault.
+ * bitstorm.org/gameoflife/
+ * web.stanford.edu/~cdebs/GameOfLife/
+
+
  * Finally, please indicate approximately how many hours you spent on this:
- * #hours: 8
+ * #hours: 10
  */
 
 #include <cstdio>
