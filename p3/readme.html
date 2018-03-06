@@ -350,9 +350,9 @@ fclose(f);</code></pre></td></tr></table></div>
 <p>Like so many other things in a unix-style system, standard input and output are presented as files. You can actually find them in your file system. On Linux, the standard output for a program lives here: <code>/proc/[PID]/fd/1</code>, where <code>[PID]</code> is the process number (each program has its own standard output of course). With that in mind, you could think of the <code>stdout</code> variable in your program (to a rough approximation) as if the following was done for you before entering <code>main()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">FILE* stdout = fopen(<span class="st">&quot;/proc/[PID of this program]/fd/1&quot;</span>,<span class="st">&quot;wb&quot;</span>);</code></pre></div>
 <p>If this still seems strange, maybe try an example to see for yourself. If you have two terminals open, in one of them do this:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">echo</span> <span class="ot">$BASHPID</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">echo</span> <span class="ot">$$</span>   <span class="co"># the $$ variable gives the process id of this shell</span>
 <span class="kw">518</span></code></pre></div>
-<p>This gives the process identifier for that terminal’s shell. Then in another terminal you could do this:</p>
+<p>Now that you have the process identifier for that terminal’s shell, you could do this from another terminal:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">echo</span> <span class="st">&#39;hello&#39;</span> <span class="kw">&gt;</span> /proc/518/fd/1</code></pre></div>
 <p>And you should see “hello” appear in the first terminal. If you want to read more about this, consult <code>man stdout</code>.</p>
 <h3 id="how-to-sleep-_">How to Sleep =_=</h3>
