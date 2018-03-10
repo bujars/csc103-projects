@@ -30,9 +30,12 @@
 #include <getopt.h> // to parse long arguments.
 #include <unistd.h> // sleep
 #include <vector>
+#include <iostream>
 using std::vector;
 #include <string>
 using std::string;
+using std::cout;
+//using std::cin;
 
 static const char* usage =
 "Usage: %s [OPTIONS]...\n"
@@ -47,7 +50,7 @@ string wfilename =  "/tmp/gol-world-current"; /* write state here */
 FILE* fworld = 0; /* handle to file wfilename. */
 string initfilename = "/tmp/gol-world-current"; /* read initial state from here. */
 
-vector<vector<bool> > world;
+//vector<vector<bool> > world; //Where the world gets stored. 
 
 
 
@@ -60,9 +63,12 @@ void update(); //transform the old version of the world into the new one
 int initFromFile(const string& fname); /* read initial state into vectors. */
 void mainLoop(); //update state, write state, sleep, repeat...
 void dumpState(FILE* f); //write the state to a file
+void dumpState(const string& fname);
 
 char text[3] = ".O";
 
+
+vector<vector<bool> > world;
 
 //vector<vector<bool> > world;
 
@@ -74,7 +80,7 @@ int main(int argc, char *argv[]) {
 		{"world",   required_argument, 0, 'w'},
 		{"fast-fw", required_argument, 0, 'f'},
 		{"help",    no_argument,       0, 'h'},
-		{-1,0,0,0}
+		{0,0,0,0}
 	};
 	// process options:
 	char c;
@@ -109,24 +115,13 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	//cin >> file
-	//stdin >> wfile;
-
 	/* NOTE: at this point wfilename initfilename and max_gen
 	 * are all set according to the command line. */
 	/* If you wrote the initFromFile function, call it here: */
 	//int fille = initFromFile(initfilename);
+	initFromFile(initfilename);
 	mainLoop();
 	return 0;
-}
-
-//Counting neighbors of cell i,j on grid g:
-//note vectors are v[i][j] i = rows j = columns ..... They produce a grid...
-size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& world){
-	/*for(size_t a = 0, a < world.size(); a++){
-
-	}*/
-	return 0; 
 }
 
 /* NOTE NOTE NOTE: This is where I believe the initFromFile(initfilename) function is called. 
@@ -134,7 +129,7 @@ size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& world){
  * where you input the text name, give it to the program, 
  * the program generates the output 
  * and then the it is played/presented on the screen. */
-int initFromFile(const string& fname){ /* read initial state into vectors. */
+	//int initFromFile(const string& fname){ /* read initial state into vectors. */
 	//This should be global?... //vector<vector<bool> > world;
 	//NOTE NOTE NOTE its wfname because it was already set... as a global variable
 #if 0 	
@@ -159,12 +154,14 @@ int initFromFile(const string& fname){ /* read initial state into vectors. */
 	fclose(f);
 #endif
 
-
-
+int initFromFile(const string& fname){ /* read initial state into vectors. */
 	//Note this was just copied from Skeiths Stuff.... You stuff was just missing the char c and you had c == "\n" not '\n'
-#if 0
-	vector<vector<bool> > world;
-	FILE* f = fopen(wfilename.c_str(),"rb"); /* note conversion to char* */
+//#if 0
+	//vector<vector<bool> > world;//note its fname from argument.
+	FILE* f = fopen(fname.c_str(),"rb"); /* note conversion to char* */
+	if(!f){
+		exit(1);
+	}
 	world.push_back(vector<bool>()); /* add a new row */
 	size_t rows = 0; /* current row we are filling */
 	char c;
@@ -180,23 +177,28 @@ int initFromFile(const string& fname){ /* read initial state into vectors. */
 		 }
 	}
 	fclose(f);
-#endif
+
+	for(size_t i = 0; i < world.size(); i++){
+		for(size_t j = 0; i <world[i].size(); j++){
+			cout << world[i][j] << " ";
+		}
+		cout << "\n";
+	
+	}
+#if 0
 	/* Open the file (for reading), storing the handle in f: */
 	FILE* f = fopen("/path/to/myfile","rb");
 	/* make sure file was opened properly: */
 	if (!f) {
-		    // deal with error by printing a message, or maybe quitting
-			//     // the entire program with a non-zero exit code, like this:
+	// deal with error by printing a message, or maybe quitting
+	// the entire program with a non-zero exit code, like this:
 		 exit(1);
-	}
-			//         /* Read a single character from the file: */
+	} /* Read a single character from the file: */
 	char c; // storage for the byte we'll read
 	fread(&c,1,1,f); // read one byte, place it in c
 	/* when you're done with the file, be sure to close it like this: */
 	 fclose(f);
-
-
-
+#endif
 
 	return 0;
 }
@@ -204,11 +206,53 @@ int initFromFile(const string& fname){ /* read initial state into vectors. */
 void update() //transform the old version of the world into the new one
 {
 	//AGAIN notices the wfname as this should be the file name variable that was already set at the start.....
-	/*FILE* f = fopen(fname.c_str(), "wb");
+
+#if 0
+		FILE* f = fopen(fname.c_str(),"rb"); /* note conversion to char* */
+		world.push_back(vector<bool>()); /* add a new row */
+		size_t rows = 0; /* current row we are filling */
+		char c;
+		while (fread(&c,1,1,f)) {
+		if (c == '\n'){
+		/* found newline; add a new row */
+			 rows++;
+				 world.push_back(vector<bool>());
+						} else if (c == '.') {
+		world[rows].push_back(false); /* dead x_x */
+		} else {
+			world[rows].push_back(true); /* alive 8D */
+																														 }
+										}
+							fclose(f);
+#endif
+	
+#if 0
+	FILE* f = fopen(wfilename.c_str(), "wb");
 	rewind(f); //this is so that we start from the beginning of each file.
 	char c = ".";
 	fwrite(&c, 1, 1, f);
-	fclose(f);*/
+	fclose(f);
+#endif
+
+}
+
+//void dumpState(const string& fname){
+void dumpState(FILE* f){
+	f = fopen(fname.c_str(), "wb");
+	char dead = '.'; //to make dead thing
+	char alive = '0'; //to make a live thing
+	char newRow = '\n';//To make a new row. 
+	rewind(f);
+	for(size_t i = 0; i < world.size(); i++){
+		for(size_t j = 0; j <world[0].size(); j++){
+			if(world[i][j])//positive/true = alive
+				fwrite(&alive, 1, 1, f);
+			else
+				fwrite(&dead, 1, 1, f);
+		}
+		fwrite(&newRow, 1, 1, f);
+	}
+	fclose(f);
 }
 
 
