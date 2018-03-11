@@ -157,7 +157,11 @@ int initFromFile(const string& fname){ /* read initial state into vectors. */
 	size_t rows = 0; /* current row we are filling */
 	vector<bool> row;
 	char c;
-	while((fread(&c,1,1,f))) {
+	//fread(&c,1,1,f);
+	while(((fread(&c,1,1,f)))) {
+		/*if(!(fread(&c,1,1,f))){
+			break;
+		}*/
 		if (c == '\n'){
 		/* found newline; add a new row */
 			 rows++;
@@ -171,7 +175,9 @@ int initFromFile(const string& fname){ /* read initial state into vectors. */
 			//rows.push_back(true);
 			world[rows].push_back(true); /* alive 8D */
 		 }
+		//fread(&c,1,1,f);
 	}
+	//fread(&c, 1, 1, f);
 	//world.erase (world.size());
 	//fclose(f);
 	rewind(f);
@@ -206,12 +212,7 @@ void update(){
 
 }
 
-
-
-
-
-
-void dumpState(FILE* f){
+void dumpState(FILE* f){ //note f here becomes wfilename from mainloop
 //	f = fopen(wfilename.c_str(), "wb");
 	char dead = '.'; //to make dead thing
 	char alive = 'O'; //to make a live thing
@@ -227,21 +228,20 @@ void dumpState(FILE* f){
 		fwrite(&newRow, 1, 1, f);
 	}
 		//fclose(f);
-	//rewind(f); //set the file back to beginning. 
+	rewind(f); //set the file back to beginning. 
 }
-
 
 void mainLoop() {
 	/* TODO: write this */
-	/* update, write, sleep */
-	
-	
+	/* update, write, sleep */	
+	fworld = fopen(wfilename.c_str(), "wb");
+	update(); //this puts the new positions. Inside neighbor count is also called. 
+	dumpState(fworld); //fworld is a global variable hat was set by skeith
 	//Update means get the new positions of the .0
 	//write means reopen the file and rewind all the way up and the transfer the code into .0
 	//sleep means take a pause
 	//sleep(1); //so we take a break
 	//max_gen must be inputted im assuming??
-	
 	
 	if (max_gen == 0) {
 		/* make one generation update per second */
@@ -250,7 +250,6 @@ void mainLoop() {
 		/* go through generations as fast as you can until
 		 * max_gen is reached... */
 	}
-
 
 	///Additioal Notes:  
 	//If a future generation is given, 
