@@ -161,7 +161,7 @@ int initFromFile(const string& fname){ /* read initial state into vectors. */
 	while(((fread(&c,1,1,f)))) {
 		/*if(!(fread(&c,1,1,f))){
 			break;
-		}*/
+		}i*/
 		if (c == '\n'){
 		/* found newline; add a new row */
 			 rows++;
@@ -177,6 +177,10 @@ int initFromFile(const string& fname){ /* read initial state into vectors. */
 		 }
 		//fread(&c,1,1,f);
 	}
+//	if(!world.empty()){
+//		world[world.size()-1].pop_back();
+//	}
+	
 	//fread(&c, 1, 1, f);
 	//world.erase (world.size());
 	//fclose(f);
