@@ -63,7 +63,7 @@ void update(); //transform the old version of the world into the new one
 int initFromFile(const string& fname); /* read initial state into vectors. */
 void mainLoop(); //update state, write state, sleep, repeat...
 void dumpState(FILE* f); //write the state to a file
-void dumpState(const string& fname);
+//void dumpState(const string& fname);
 
 char text[3] = ".O";
 
@@ -118,9 +118,21 @@ int main(int argc, char *argv[]) {
 	/* NOTE: at this point wfilename initfilename and max_gen
 	 * are all set according to the command line. */
 	/* If you wrote the initFromFile function, call it here: */
-	//int fille = initFromFile(initfilename);
+	//note its called initfilename as thats the global variable of the file that gets stored. 
 	initFromFile(initfilename);
 	mainLoop();
+	
+	for(size_t i = 0; i < world.size(); i++){
+		for(size_t j = 0; j < world[i].size(); j++){
+			if(world[i][j])
+				cout << 'O';
+			else
+				cout << '.';
+		}
+		cout << "\n";
+	}
+	
+	
 	return 0;
 }
 
@@ -132,119 +144,81 @@ int main(int argc, char *argv[]) {
 	//int initFromFile(const string& fname){ /* read initial state into vectors. */
 	//This should be global?... //vector<vector<bool> > world;
 	//NOTE NOTE NOTE its wfname because it was already set... as a global variable
-#if 0 	
-	FILE* f = fopen(fname.c_str(), "rb"); //Make sure you cin the file name...
-	world.push_back(vector<bool>()); //add a new row....why is this outside the loop? how do we add more?????
-	size_t rows = 0; //Curent row getting filled
-	char c;
-	while(fread(&c, 1, 1, f))
-	{
-		if(c == '\n'){
-			rows++;
-			world.push_back(vector<bool>());
-		/*NOTE NOTE NOTE this is adding new rows when a new line is deteced, since we are going row by row. */
-		}
-		else if(c == '.'){ //if the current character we are reading is a dot,
-			world[rows].push_back(false); //set it to false, or in this case dead
-		}
-		else {
-			world[rows].push_back(true); //set it to true, or in this case alive
-		}
-	}
-	fclose(f);
-#endif
 
 int initFromFile(const string& fname){ /* read initial state into vectors. */
 	//Note this was just copied from Skeiths Stuff.... You stuff was just missing the char c and you had c == "\n" not '\n'
 //#if 0
-	//vector<vector<bool> > world;//note its fname from argument.
+	//vector<vector<bool> > world;//note its fname from argument parameters
 	FILE* f = fopen(fname.c_str(),"rb"); /* note conversion to char* */
 	if(!f){
 		exit(1);
 	}
 	world.push_back(vector<bool>()); /* add a new row */
 	size_t rows = 0; /* current row we are filling */
+	vector<bool> row;
 	char c;
-	while (fread(&c,1,1,f)) {
+	while((fread(&c,1,1,f))) {
 		if (c == '\n'){
 		/* found newline; add a new row */
 			 rows++;
-			 world.push_back(vector<bool>());
+			 world.push_back(row);
+			 //world.push_back(rows); //this is so ew insert a new row into our world. 
+			 //rows.clear(); //this is so the vector gets cleared all over again
 		} else if (c == '.') {
 			world[rows].push_back(false); /* dead x_x */
+			//rows.push_back(false);
 		} else {
+			//rows.push_back(true);
 			world[rows].push_back(true); /* alive 8D */
 		 }
 	}
-	fclose(f);
-
-	for(size_t i = 0; i < world.size(); i++){
-		for(size_t j = 0; i <world[i].size(); j++){
-			cout << world[i][j] << " ";
-		}
-		cout << "\n";
-	
-	}
-#if 0
-	/* Open the file (for reading), storing the handle in f: */
-	FILE* f = fopen("/path/to/myfile","rb");
-	/* make sure file was opened properly: */
-	if (!f) {
-	// deal with error by printing a message, or maybe quitting
-	// the entire program with a non-zero exit code, like this:
-		 exit(1);
-	} /* Read a single character from the file: */
-	char c; // storage for the byte we'll read
-	fread(&c,1,1,f); // read one byte, place it in c
-	/* when you're done with the file, be sure to close it like this: */
-	 fclose(f);
-#endif
+	//world.erase (world.size());
+	//fclose(f);
+	rewind(f);
 
 	return 0;
 }
 
-void update() //transform the old version of the world into the new one
+/*void update() //transform the old version of the world into the new one
 {
-	//AGAIN notices the wfname as this should be the file name variable that was already set at the start.....
+	vector<vector<bool> > newWorld;
 
-#if 0
-		FILE* f = fopen(fname.c_str(),"rb"); /* note conversion to char* */
-		world.push_back(vector<bool>()); /* add a new row */
-		size_t rows = 0; /* current row we are filling */
-		char c;
-		while (fread(&c,1,1,f)) {
-		if (c == '\n'){
-		/* found newline; add a new row */
-			 rows++;
-				 world.push_back(vector<bool>());
-						} else if (c == '.') {
-		world[rows].push_back(false); /* dead x_x */
-		} else {
-			world[rows].push_back(true); /* alive 8D */
-																														 }
-										}
-							fclose(f);
-#endif
-	
-#if 0
-	FILE* f = fopen(wfilename.c_str(), "wb");
-	rewind(f); //this is so that we start from the beginning of each file.
-	char c = ".";
-	fwrite(&c, 1, 1, f);
-	fclose(f);
-#endif
+}*/
+
+//NOTE: world is set as global, so its not put in parameters
+//void updateVector(vector<vector<bool> >& g){
+void update(){
+	vector<vector<bool> > changed; 
+	for(size_t i = 0; i< world.size(); i++){
+		vector<bool> row;
+		for(size_t j = 0; j < world[0].size(); j++){
+			size_t nbr = nbrCount(i, j, world);
+			if((world[i][j] == true && nbr < 2) || (world[i][j] == true && nbr > 3))
+				row.push_back(false);
+			else if(world[i][j] == false && nbr == 3)
+				row.push_back(true);
+			else
+				row.push_back(world[i][j]);
+		}
+		changed.push_back(row);
+	}
+	world = changed; 
 
 }
 
-//void dumpState(const string& fname){
+
+
+
+
+
 void dumpState(FILE* f){
-	f = fopen(fname.c_str(), "wb");
+//	f = fopen(wfilename.c_str(), "wb");
 	char dead = '.'; //to make dead thing
-	char alive = '0'; //to make a live thing
+	char alive = 'O'; //to make a live thing
 	char newRow = '\n';//To make a new row. 
-	rewind(f);
+	//rewind(f);
 	for(size_t i = 0; i < world.size(); i++){
-		for(size_t j = 0; j <world[0].size(); j++){
+		for(size_t j = 0; j <world[i].size(); j++){
 			if(world[i][j])//positive/true = alive
 				fwrite(&alive, 1, 1, f);
 			else
@@ -252,7 +226,8 @@ void dumpState(FILE* f){
 		}
 		fwrite(&newRow, 1, 1, f);
 	}
-	fclose(f);
+		//fclose(f);
+	//rewind(f); //set the file back to beginning. 
 }
 
 
@@ -284,6 +259,52 @@ void mainLoop() {
 	//otherwise keep pausing as we go.
 
 }
+
+
+
+size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g){
+	size_t count = 0; //The number of neighbors
+	size_t m = g.size(); //holds row length
+	size_t n = g[0].size(); //holds column length
+	for(int k = -1; k < 2; k++){	
+		for(int h = -1; h < 2; h++){
+			if(!(h==0 && j==0)){
+				int reducedI = i;
+				int reducedJ = j;
+				if((((int)i)+k) == m){
+					reducedI = ((((int)i)+k) - m) % m;
+				}
+				else if((((int)i)+k)<0){
+					reducedI = ((((int)i)+k) + m) % m;
+				}
+				else{		
+					reducedI = i+k;
+				}
+				if((((int)j)+h) == n){																																		 				reducedJ = (((int(j))+h) - n) % n;
+				}
+				else if((((int)j)+h)<0){
+					reducedJ = ((((int)j)+h) + n) % n;
+				}
+				else{
+					reducedJ = j+h;
+				}
+				if(!(reducedI == i && reducedJ == j) && g[reducedI][reducedJ] == true){
+					count++;
+				}
+			}
+		}
+	}
+	return count;
+}
+
+
+
+
+
+
+
+
+
 
 
 
