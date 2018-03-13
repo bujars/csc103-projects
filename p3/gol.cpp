@@ -180,7 +180,10 @@ int initFromFile(const string& fname){ /* read initial state into vectors. */
 //	if(!world.empty()){
 //		world[world.size()-1].pop_back();
 //	}
-	
+//
+	world.pop_back();   
+// int rowSize = (world.end()-1);
+	//world[rowSize].erase(rowSize);
 	//fread(&c, 1, 1, f);
 	//world.erase (world.size());
 	//fclose(f);
