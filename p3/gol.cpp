@@ -132,6 +132,197 @@ int main(int argc, char *argv[]) {
 		cout << "\n";
 	}
 	
+	vector<bool> row1;
+	row1.push_back(false);
+    	row1.push_back(false);
+	row1.push_back(false);
+  	row1.push_back(false);
+	row1.push_back(false);
+	row1.push_back(false);
+	row1.push_back(false);
+	row1.push_back(false);
+	row1.push_back(false);
+  	row1.push_back(false);
+	row1.push_back(false);
+	row1.push_back(false);
+	row1.push_back(false);
+   	row1.push_back(false);
+	row1.push_back(false);
+	row1.push_back(false);
+	row1.push_back(false);
+	row1.push_back(false);
+	row1.push_back(false);
+	row1.push_back(false);
+
+	g.push_back(row1);
+	vector<bool> row2;
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(false);
+	row2.push_back(true);
+	row2.push_back(false);
+	g.push_back(row2);
+	vector<bool> row3;
+	row3.push_back(true);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(false);
+	row3.push_back(true);
+	g.push_back(row3);
+	vector<bool> row4;
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(false);
+	row4.push_back(true);
+	row4.push_back(true);
+	g.push_back(row4);
+	vector<bool> row5;
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	row5.push_back(false);
+	g.push_back(row5);
+	vector<bool> row6;
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	row6.push_back(false);
+	g.push_back(row6);
+	vector<bool> row7;
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	row7.push_back(false);
+	g.push_back(row7);
+	
+	for(int i = 0; i < g.size(); i++){
+		for(int j = 0; j < g[0].size(); j++){
+			cout << g[i][j] << " ";
+		}
+		cout << "\n";
+	}
+
+	world = g;
+	updateVector();
+	for(int i = 0; i < g.size(); i++){
+		for(int j = 0; j < g[0].size(); j++){
+			cout << g[i][j] << " ";
+		}
+			cout << "\n";
+	}
+
+	cout << "\n" << "\n";
+
+
+
+
+
+
+
+
+	for(int i = 0; i < g.size(); i++){
+		for(int j = 0; j < g[0].size(); j++){
+			cout << g[i][j] << " ";
+		}
+		cout << "\n";
+	}
+	
+	
+	
+	
 	
 	return 0;
 }
