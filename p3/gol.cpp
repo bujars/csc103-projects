@@ -378,8 +378,8 @@ int initFromFile(const string& fname){ /* read initial state into vectors. */
 	//world[rowSize].erase(rowSize);
 	//fread(&c, 1, 1, f);
 	//world.erase (world.size());
-	//fclose(f);
-	rewind(f);
+	fclose(f);
+	//rewind(f);
 
 	return 0;
 }
@@ -412,7 +412,7 @@ void update(){
 }
 
 void dumpState(FILE* f){ //note f here becomes wfilename from mainloop
-//	f = fopen(wfilename.c_str(), "wb");
+	f = fopen(wfilename.c_str(), "wb");
 	char dead = '.'; //to make dead thing
 	char alive = 'O'; //to make a live thing
 	char newRow = '\n';//To make a new row. 
@@ -426,8 +426,8 @@ void dumpState(FILE* f){ //note f here becomes wfilename from mainloop
 		}
 		fwrite(&newRow, 1, 1, f);
 	}
-		//fclose(f);
-	rewind(f); //set the file back to beginning. 
+	fclose(f);
+	//rewind(f); //set the file back to beginning. 
 }
 
 void mainLoop() {
