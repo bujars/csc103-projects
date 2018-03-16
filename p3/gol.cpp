@@ -428,23 +428,6 @@ void dumpState(FILE* f){ //note f here becomes wfilename from mainloop
 	}
 		//fclose(f);
 	rewind(f); //set the file back to beginning. 
-
-	
-
-/*	char c;
-	for(size_t i = 0; i < world.size(); i++) {
-		for(size_t j = 0; j < world[i].size(); j++){
-			if(world[i][j]) c = 'O';
-			else c = '.';
-			fwrite(&c,1,1,f);
-			}
-			c = '\n';
-			fwrite(&c,1,1,f);
-		}
-		rewind(f);*/
-
-
-
 }
 
 void mainLoop() {
@@ -520,31 +503,6 @@ size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g){
 	}
 	return count;
 
-/*	size_t neighbors = 0;
-	int lastColumn = g[0].size()-1; //last column index number
-	int lastRow = g.size()-1; //last row index number		
-	for(int x = -1; x <= 1; x++) {
-		for(int y = -1; y <= 1; y++) {
-			if(x == 0 && y == 0) continue;
-				int checkColumn = j + x;
-				int checkRow = i + y;
-			if(checkColumn < 0) {
-				checkColumn = lastColumn;
-			} else if(checkColumn > lastColumn) {
-				checkColumn = 0;
-			}	
-			if(checkRow < 0) {
-																											checkRow = lastRow;
-																														} else if(checkRow > lastRow) {
-																																			checkRow = 0;
-																																						}
-
-																									if(g[checkRow][checkColumn] == true) neighbors++;
-																											}
-							}
-			return neighbors;*/
-
-}
 #endif
 
 size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g){
@@ -563,11 +521,7 @@ size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g){
 					reducedI = ((((int)i)+k) - m) % m;
 				}
 				else if((((int)i)+k)<0){
-					//cout << i << " 2\n";
 					reducedI = ((((int)i)+k) + m) % m;
-					 ///cout << "Here2\n";
-					 ///cout << k << " " << i << " " << reducedI << " 1\n";
-
 				}
 				else{
 					reducedI = i+k;
@@ -580,7 +534,7 @@ size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g){
 				}
 				else{
 					reducedJ = j+h;
-				}]
+				}				
 				if(!(reducedI == i && reducedJ == j) && g[reducedI][reducedJ] == true){
 					count++;
 				}
