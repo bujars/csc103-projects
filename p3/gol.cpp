@@ -484,7 +484,7 @@ void mainLoop() {
 }
 
 
-
+#if 0
 size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g){
 	size_t count = 0; //The number of neighbors
 	size_t m = g.size(); //holds row length
@@ -545,7 +545,51 @@ size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g){
 			return neighbors;*/
 
 }
+#endif
 
+size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g){
+	size_t count = 0; //The number of neighbors
+	size_t m = g.size(); //holds row length
+	size_t n = g[0].size(); //holds column length
+	//cout << "The value i " << i << " j " << j << " \n";	
+	
+
+	for(int k = -1; k < 2; k++){
+		for(int h = -1; h < 2; h++){
+			if(!(h==0 && k==0)){
+				int reducedI = i;
+				int reducedJ = j;
+				if((((int)i)+k) == m){
+					reducedI = ((((int)i)+k) - m) % m;
+				}
+				else if((((int)i)+k)<0){
+					//cout << i << " 2\n";
+					reducedI = ((((int)i)+k) + m) % m;
+					 ///cout << "Here2\n";
+					 ///cout << k << " " << i << " " << reducedI << " 1\n";
+
+				}
+				else{
+					reducedI = i+k;
+				}
+				if((((int)j)+h) == n){
+					reducedJ = (((int(j))+h) - n) % n;
+				}
+				else if((((int)j)+h)<0){
+					reducedJ = ((((int)j)+h) + n) % n;
+				}
+				else{
+					reducedJ = j+h;
+				}]
+				if(!(reducedI == i && reducedJ == j) && g[reducedI][reducedJ] == true){
+					count++;
+				}
+			}
+		
+		}
+	}
+	return count; 
+}
 
 
 
