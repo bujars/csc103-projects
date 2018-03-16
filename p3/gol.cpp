@@ -249,11 +249,19 @@ void mainLoop() {
 	//sleep means take a pause
 	//sleep(1); //so we take a break
 	//max_gen must be inputted im assuming??
-	
+	int i = 1;	
 	if (max_gen == 0) {
+		update();
+		dumpState(fworld);
+		sleep(1);
 		/* make one generation update per second */
 	} 
 	else {
+		while(i < max_gen){
+			update();
+			i++;
+		}
+		dumpState(fworld);
 		/* go through generations as fast as you can until
 		 * max_gen is reached... */
 	}
