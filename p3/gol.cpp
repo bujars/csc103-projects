@@ -122,7 +122,7 @@ int main(int argc, char *argv[]) {
 	initFromFile(initfilename);
 	mainLoop();
 	
-	for(size_t i = 0; i < world.size(); i++){
+	/*for(size_t i = 0; i < world.size(); i++){
 		for(size_t j = 0; j < world[i].size(); j++){
 			if(world[i][j])
 				cout << 'O';
@@ -130,7 +130,7 @@ int main(int argc, char *argv[]) {
 				cout << '.';
 		}
 		cout << "\n";
-	}
+	}*/
 	/*
 	vector<vector<bool> >g;
 	vector<bool> row1;
@@ -411,59 +411,90 @@ void update(){
 
 }
 
-void dumpState(FILE* f){ //note f here becomes wfilename from mainloop
-	f = fopen(wfilename.c_str(), "wb");
+void dumpState(){ //note f here becomes wfilename from mainloop
+	//rewind(f);
 	char dead = '.'; //to make dead thing
 	char alive = 'O'; //to make a live thing
 	char newRow = '\n';//To make a new row. 
 	//rewind(f);
-	for(size_t i = 0; i < world.size(); i++){
-		for(size_t j = 0; j <world[i].size(); j++){
-			if(world[i][j])//positive/true = alive
-				fwrite(&alive, 1, 1, f);
-			else
-				fwrite(&dead, 1, 1, f);
+//#if 0
+	if(wfilename == "-"){
+		for(size_t i = 0; i < world.size(); i++){
+			for(size_t j = 0; j <world[i].size(); j++){
+				if(world[i][j])//positive/true = alive
+					fwrite(&alive, 1, 1, stdout);
+				else
+					fwrite(&dead, 1, 1, stdout);
+				}
+			fwrite(&newRow, 1, 1, stdout);
+			}
 		}
-		fwrite(&newRow, 1, 1, f);
+	else{
+//#endif
+		FILE* f = fopen(wfilename.c_str(), "wb");
+		for(size_t i = 0; i < world.size(); i++){
+			for(size_t j = 0; j <world[i].size(); j++){
+				if(world[i][j])//positive/true = alive
+					fwrite(&alive, 1, 1, f);
+				else
+					fwrite(&dead, 1, 1, f);
+			}
+			fwrite(&newRow, 1, 1, f);
+		}	
+		fclose(f);
 	}
-	fclose(f);
 	//rewind(f); //set the file back to beginning. 
 }
+#if 0
+void printGen(){
+	for(size_t i = 0; i < world.size(); i++){
+		for(size_t j = 0; j < world[i].size(); j++){
+			if(grid[i][])
+				printf("O");
+			else
+				printf(".");
+		}
+		printf("\n");
+	}
+}
+#endif
 
-void mainLoop() {
+
+void mainLoop(){
 	/* TODO: write this */
 	/* update, write, sleep */	
-	fworld = fopen(wfilename.c_str(), "wb");
-	update(); //this puts the new positions. Inside neighbor count is also called. 
-	dumpState(fworld); //fworld is a global variable hat was set by skeith
-	//Update means get the new positions of the .0
-	//write means reopen the file and rewind all the way up and the transfer the code into .0
-	//sleep means take a pause
-	//sleep(1); //so we take a break
-	//max_gen must be inputted im assuming??
-	int i = 1;	
-	if (max_gen == 0) {
-		update();
-		dumpState(fworld);
-		sleep(1);
-		/* make one generation update per second */
-	} 
+	//fworld = fopen(wfilename.c_str(), "wb");
+	//update(); //this puts the new positions. Inside neighbor count is also called. 
+	//dumpState(fworld); //fworld is a global variable hat was set by skeith
+	int i = 0;
+	if(max_gen == 0){
+		while(true){
+			//while(true) {
+			update();
+			dumpState();
+			sleep(1);
+			i++;
+		}
+	}
 	else {
 		while(i < max_gen){
 			update();
 			i++;
 		}
-		dumpState(fworld);
+		dumpState(); 
 		/* go through generations as fast as you can until
 		 * max_gen is reached... */
 	}
-
+	//for(size_t i = 0; i < max_gen; i++){
+	//	update();
+	//	dumpState(fworld);
+		//if(i == max_gen - 1) printGen();
+	//}
 	///Additioal Notes:  
 	//If a future generation is given, 
 	//we do not pause for time, 
 	//we want it to skip ahead, 
 	//otherwise keep pausing as we go.
-
 }
 
 
