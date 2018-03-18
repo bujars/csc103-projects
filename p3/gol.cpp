@@ -35,6 +35,17 @@ string wfilename =  "/tmp/gol-world-current"; /* write state here */
 FILE* fworld = 0; /* handle to file wfilename. */
 string initfilename = "/tmp/gol-world-current"; /* read initial state from here. */
 
+/* see the hints section of the readme: to get the basics working,
+ * uncomment this next line, and you'll have a suitable test vector
+ * to which you can apply the rules. */
+// #define WARMUP 1
+
+#ifdef WARMUP
+vector<vector<bool> > world = {
+#include "res/bglider-small"
+};
+#endif
+
 /* NOTE: you don't have to write these functions -- this is just how
  * I chose to organize my code. */
 size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g);
@@ -43,6 +54,8 @@ int initFromFile(const string& fname); /* read initial state into vectors. */
 void mainLoop();
 void dumpState(FILE* f);
 
+/* NOTE: you can use a *boolean* as an index into the following array
+ * to translate from bool to the right characters: */
 char text[3] = ".O";
 
 int main(int argc, char *argv[]) {
