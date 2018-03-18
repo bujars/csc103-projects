@@ -7,7 +7,8 @@
  * NOT mean it is okay to COPY THAT SOURCE.  What you submit here **MUST BE
  * YOUR OWN WORK**.
  * References:
- * 
+ *
+ * Peers: Joseph, Rand, Abtahi, Farhan, Kevin .. cant remember other names.. 
  * TA: Ben Wu
  * stackoverflow.com/questions/19672301/checking-out-of-bounds-in-java  
  * IDEA: //Helped me realized that I need to make sure my indexes are within 0, the start of the grid, or the vector, column/row length
