@@ -465,8 +465,8 @@ void mainLoop(){
 	/* update, write, sleep */	
 	//fworld = fopen(wfilename.c_str(), "wb");
 	//update(); //this puts the new positions. Inside neighbor count is also called. 
-	//dumpState(fworld); //fworld is a global variable hat was set by skeith
-	int i = 0;
+	//dumpState(); //fworld is a global variable hat was set by skeith
+	size_t i = 0;
 	if(max_gen == 0){
 		while(true){
 			//while(true) {
@@ -477,6 +477,7 @@ void mainLoop(){
 		}
 	}
 	else {
+		//	i = 1;
 		while(i < max_gen){
 			update();
 			i++;
