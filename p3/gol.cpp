@@ -22,7 +22,7 @@
 
 
  * Finally, please indicate approximately how many hours you spent on this:
- * #hours: 10
+ * #hours: 30
  */
 
 #include <cstdio>
@@ -30,12 +30,9 @@
 #include <getopt.h> // to parse long arguments.
 #include <unistd.h> // sleep
 #include <vector>
-#include <iostream>
 using std::vector;
 #include <string>
 using std::string;
-using std::cout;
-//using std::cin;
 
 static const char* usage =
 "Usage: %s [OPTIONS]...\n"
@@ -50,14 +47,6 @@ string wfilename =  "/tmp/gol-world-current"; /* write state here */
 FILE* fworld = 0; /* handle to file wfilename. */
 string initfilename = "/tmp/gol-world-current"; /* read initial state from here. */
 
-//vector<vector<bool> > world; //Where the world gets stored. 
-
-
-
-/* NOTE: you don't have to write these functions -- this is just how
- * I chose to organize my code. */
-
-//Pasrt you can ignore from skeleton.
 size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g); //count neighbors of cell i, j on grid g
 void update(); //transform the old version of the world into the new one
 int initFromFile(const string& fname); /* read initial state into vectors. */
@@ -67,11 +56,7 @@ void dumpState(FILE* f); //write the state to a file
 
 char text[3] = ".O";
 
-
 vector<vector<bool> > world;
-
-//vector<vector<bool> > world;
-
 
 int main(int argc, char *argv[]) {
 	// define long options
@@ -91,7 +76,6 @@ int main(int argc, char *argv[]) {
 	it as provided by the sketlon. This is not something you need to
 	worry about. Updated: March 5th, 2018 -- Told by Ben on March 2
 	nd. */
-
 
 	//Parts in Main that you must keep, but don't worry about it. Just know what it accomplishes
 	while ((c = getopt_long(argc, argv, "hs:w:f:", long_opts, &opt_index)) != -1) {
@@ -120,211 +104,7 @@ int main(int argc, char *argv[]) {
 	/* If you wrote the initFromFile function, call it here: */
 	//note its called initfilename as thats the global variable of the file that gets stored. 
 	initFromFile(initfilename);
-	mainLoop();
-	
-	/*for(size_t i = 0; i < world.size(); i++){
-		for(size_t j = 0; j < world[i].size(); j++){
-			if(world[i][j])
-				cout << 'O';
-			else
-				cout << '.';
-		}
-		cout << "\n";
-	}*/
-	/*
-	vector<vector<bool> >g;
-	vector<bool> row1;
-	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-  	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-  	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-   	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-	row1.push_back(false);
-
-	g.push_back(row1);
-	vector<bool> row2;
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(false);
-	row2.push_back(true);
-	row2.push_back(false);
-	g.push_back(row2);
-	vector<bool> row3;
-	row3.push_back(true);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(false);
-	row3.push_back(true);
-	g.push_back(row3);
-	vector<bool> row4;
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(false);
-	row4.push_back(true);
-	row4.push_back(true);
-	g.push_back(row4);
-	vector<bool> row5;
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	row5.push_back(false);
-	g.push_back(row5);
-	vector<bool> row6;
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	row6.push_back(false);
-	g.push_back(row6);
-	vector<bool> row7;
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	row7.push_back(false);
-	g.push_back(row7);
-	
-	for(int i = 0; i < g.size(); i++){
-		for(int j = 0; j < g[0].size(); j++){
-			cout << g[i][j] << " ";
-		}
-		cout << "\n";
-	}
-
-	world = g;
-	update();
-	for(int i = 0; i < g.size(); i++){
-		for(int j = 0; j < g[0].size(); j++){
-			cout << g[i][j] << " ";
-		}
-			cout << "\n";
-	}
-
-	cout << "\n" << "\n";
-
-
-
-
-
-
-
-
-	for(int i = 0; i < g.size(); i++){
-		for(int j = 0; j < g[0].size(); j++){
-			cout << g[i][j] << " ";
-		}
-		cout << "\n";
-	}
-	*/
-	
-	
-	
-	
+	mainLoop();	
 	return 0;
 }
 
@@ -338,9 +118,6 @@ int main(int argc, char *argv[]) {
 	//NOTE NOTE NOTE its wfname because it was already set... as a global variable
 
 int initFromFile(const string& fname){ /* read initial state into vectors. */
-	//Note this was just copied from Skeiths Stuff.... You stuff was just missing the char c and you had c == "\n" not '\n'
-//#if 0
-	//vector<vector<bool> > world;//note its fname from argument parameters
 	FILE* f = fopen(fname.c_str(),"rb"); /* note conversion to char* */
 	if(!f){
 		exit(1);
@@ -349,49 +126,23 @@ int initFromFile(const string& fname){ /* read initial state into vectors. */
 	size_t rows = 0; /* current row we are filling */
 	vector<bool> row;
 	char c;
-	//fread(&c,1,1,f);
 	while(((fread(&c,1,1,f)))) {
-		/*if(!(fread(&c,1,1,f))){
-			break;
-		}i*/
 		if (c == '\n'){
 		/* found newline; add a new row */
 			 rows++;
 			 world.push_back(row);
-			 //world.push_back(rows); //this is so ew insert a new row into our world. 
-			 //rows.clear(); //this is so the vector gets cleared all over again
+			 //world.push_back(rows); //this is so ew insert a new row into our world.
 		} else if (c == '.') {
 			world[rows].push_back(false); /* dead x_x */
-			//rows.push_back(false);
 		} else {
-			//rows.push_back(true);
 			world[rows].push_back(true); /* alive 8D */
 		 }
-		//fread(&c,1,1,f);
 	}
-//	if(!world.empty()){
-//		world[world.size()-1].pop_back();
-//	}
-//
-	world.pop_back();   
-// int rowSize = (world.end()-1);
-	//world[rowSize].erase(rowSize);
-	//fread(&c, 1, 1, f);
-	//world.erase (world.size());
+	world.pop_back();
 	fclose(f);
-	//rewind(f);
-
 	return 0;
 }
 
-/*void update() //transform the old version of the world into the new one
-{
-	vector<vector<bool> > newWorld;
-
-}*/
-
-//NOTE: world is set as global, so its not put in parameters
-//void updateVector(vector<vector<bool> >& g){
 void update(){
 	vector<vector<bool> > changed; 
 	for(size_t i = 0; i< world.size(); i++){
@@ -412,12 +163,10 @@ void update(){
 }
 
 void dumpState(){ //note f here becomes wfilename from mainloop
-	//rewind(f);
 	char dead = '.'; //to make dead thing
 	char alive = 'O'; //to make a live thing
 	char newRow = '\n';//To make a new row. 
 	//rewind(f);
-//#if 0
 	if(wfilename == "-"){
 		for(size_t i = 0; i < world.size(); i++){
 			for(size_t j = 0; j <world[i].size(); j++){
@@ -430,7 +179,6 @@ void dumpState(){ //note f here becomes wfilename from mainloop
 			}
 		}
 	else{
-//#endif
 		FILE* f = fopen(wfilename.c_str(), "wb");
 		for(size_t i = 0; i < world.size(); i++){
 			for(size_t j = 0; j <world[i].size(); j++){
@@ -443,22 +191,7 @@ void dumpState(){ //note f here becomes wfilename from mainloop
 		}	
 		fclose(f);
 	}
-	//rewind(f); //set the file back to beginning. 
 }
-#if 0
-void printGen(){
-	for(size_t i = 0; i < world.size(); i++){
-		for(size_t j = 0; j < world[i].size(); j++){
-			if(grid[i][])
-				printf("O");
-			else
-				printf(".");
-		}
-		printf("\n");
-	}
-}
-#endif
-
 
 void mainLoop(){
 	/* TODO: write this */
@@ -477,65 +210,13 @@ void mainLoop(){
 		}
 	}
 	else {
-		//	i = 1;
 		while(i < max_gen){
 			update();
 			i++;
 		}
 		dumpState(); 
-		/* go through generations as fast as you can until
-		 * max_gen is reached... */
 	}
-	//for(size_t i = 0; i < max_gen; i++){
-	//	update();
-	//	dumpState(fworld);
-		//if(i == max_gen - 1) printGen();
-	//}
-	///Additioal Notes:  
-	//If a future generation is given, 
-	//we do not pause for time, 
-	//we want it to skip ahead, 
-	//otherwise keep pausing as we go.
 }
-
-
-#if 0
-size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g){
-	size_t count = 0; //The number of neighbors
-	size_t m = g.size(); //holds row length
-	size_t n = g[0].size(); //holds column length
-	for(int k = -1; k < 2; k++){	
-		for(int h = -1; h < 2; h++){
-			if(!(h==0 && j==0)){
-				int reducedI = i;
-				int reducedJ = j;
-				if((((int)i)+k) == m){
-					reducedI = ((((int)i)+k) - m) % m;
-				}
-				else if((((int)i)+k)<0){
-					reducedI = ((((int)i)+k) + m) % m;
-				}
-				else{		
-					reducedI = i+k;
-				}
-				if((((int)j)+h) == n){
-					reducedJ = (((int(j))+h) - n) % n;
-				}
-				else if((((int)j)+h)<0){
-					reducedJ = ((((int)j)+h) + n) % n;
-				}
-				else{
-					reducedJ = j+h;
-				}
-				if(!(reducedI == i && reducedJ == j) && g[reducedI][reducedJ] == true){
-					count++;
-				}
-			}
-		}
-	}
-	return count;
-
-#endif
 
 size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g){
 	size_t count = 0; //The number of neighbors
