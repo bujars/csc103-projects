@@ -48,13 +48,33 @@ string wfilename =  "/tmp/gol-world-current"; /* write state here */
 FILE* fworld = 0; /* handle to file wfilename. */
 string initfilename = "/tmp/gol-world-current"; /* read initial state from here. */
 
+//<<<<<<< HEAD
 size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g); //count neighbors of cell i, j on grid g
 void update(); //transform the old version of the world into the new one
+//=======
+/* see the hints section of the readme: to get the basics working,
+ * uncomment this next line, and you'll have a suitable test vector
+ * to which you can apply the rules. */
+// #define WARMUP 1
+/*
+#ifdef WARMUP
+vector<vector<bool> > world = {
+#include "res/bglider-small"
+};
+#endif
+*/
+/* NOTE: you don't have to write these functions -- this is just how
+ * I chose to organize my code. */
+size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g);
+void update();
+>>>>>>> 2aef57d9aa63868b057964c969da0a6d6415a8fd
 int initFromFile(const string& fname); /* read initial state into vectors. */
 void mainLoop(); //update state, write state, sleep, repeat...
 void dumpState(FILE* f); //write the state to a file
 //void dumpState(const string& fname);
 
+/* NOTE: you can use a *boolean* as an index into the following array
+ * to translate from bool to the right characters: */
 char text[3] = ".O";
 
 vector<vector<bool> > world;
