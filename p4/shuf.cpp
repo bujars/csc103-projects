@@ -22,6 +22,9 @@ static const char* usage =
 "   -n,--head-count=N      output at most N lines.\n"
 "   --help                 show this message and exit.\n";
 
+void randPerm(vector<string>& v);
+
+
 int main(int argc, char *argv[]) {
 	// define long options
 	static int echo=0, rlow=0, rhigh=0;
@@ -65,6 +68,54 @@ int main(int argc, char *argv[]) {
 	 * Even -i and -e are mutally exclusive... */
 
 	/* TODO: write me... */
+	vector<string> v;
+
+	string n;
+//	while(cin >> n)
+//			v.push_back(n);
+	while(optind < argc){
+		v.push_back(argv[optind++]);
+	}
+	randPerm(v);
+	/*for(int i = 0; i < v.size(); i++){
+		cout << v[i] << "\n";
+	}*/
+	if(echo){
+	//	char c = '\n';
+		for(size_t i = 0; i < v.size(); i++){
+			cout << v[i] << "\n";
+		//	fwrite(&v[i], 1, 1, stdout);
+		//	fwrite(&c, 1, 1, stdout);
+		}
+	}
+
+	if((int)count > 0){
+		for(size_t i = 0; i < count; i++){
+			cout << v[i] << "\n";
+		}
+	}
+
+
 
 	return 0;
+	//vector<string> words; //To store all of the user input
+
 }
+
+
+void randPerm(vector<string>& v){
+	srand(time(0));	
+	for(int i = v.size()-1; i > 0; --i){
+		int random = rand();
+		int randPos = random % (i+1); 
+		string temp = v[randPos];
+		v[randPos] = v[i];
+		v[i] = temp;
+	}
+}
+
+
+
+
+
+
