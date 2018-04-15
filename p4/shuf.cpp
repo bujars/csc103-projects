@@ -24,6 +24,8 @@ static const char* usage =
 
 void randPerm(vector<string>& v);
 
+void randPermString(vector<string>& v);
+void randPermInt(vector<int>& v);
 
 int main(int argc, char *argv[]) {
 	// define long options
@@ -68,33 +70,71 @@ int main(int argc, char *argv[]) {
 	 * Even -i and -e are mutally exclusive... */
 
 	/* TODO: write me... */
+#if 0
 	vector<string> v;
-
-	string n;
-//	while(cin >> n)
-//			v.push_back(n);
 	while(optind < argc){
 		v.push_back(argv[optind++]);
 	}
 	randPerm(v);
-	/*for(int i = 0; i < v.size(); i++){
-		cout << v[i] << "\n";
-	}*/
 	if(echo){
-	//	char c = '\n';
 		for(size_t i = 0; i < v.size(); i++){
 			cout << v[i] << "\n";
-		//	fwrite(&v[i], 1, 1, stdout);
-		//	fwrite(&c, 1, 1, stdout);
 		}
 	}
-
 	if((int)count > 0){
 		for(size_t i = 0; i < count; i++){
 			cout << v[i] << "\n";
 		}
 	}
+	if(userange){
+		for(size_t i = rlow; i < rhigh; i++){
+			cout << v[i] << "\n";
+		}
+	}
+#endif
 
+
+	vector<string> s; /*vector for everthing not -i */
+	vector<int> I; /* vector of ints for -i*/
+	if(echo){
+		while(optind < argc){
+			s.push_back(argv[optind++]);
+	}
+						/*randPermString(s);
+							 * 		for(size_t i = 0; i < s.size(); i++){
+							 * 					cout << s[i] << "\n";
+							 * 							}*/
+	}
+	else if(userange){
+		int adder = rlow;
+		int end = rhigh;
+		while(adder <= end){	
+			I.push_back(adder++); 	
+		}
+	}
+	randPermString(s);
+	randPermInt(I);
+	int nC = count;
+	if(nC > 0){
+		if(userange){
+			for(size_t i = 0; i < nC; i++)
+				cout << I[i] << "\n";
+		}
+		else{
+			for(size_t i = 0; i < nC; i++)
+				cout << s[i] << "\n";
+		}
+	}
+	else if(echo){
+		for(size_t i = 0; i < s.size(); i++){
+			cout << s[i] << "\n";
+		}
+	}
+	else if(userange){
+		for(size_t j = 0; j < I.size(); j++){
+			cout << I[j] << "\n";
+		}
+	}
 
 
 	return 0;
@@ -115,6 +155,27 @@ void randPerm(vector<string>& v){
 }
 
 
+void randPermString(vector<string>& v){
+		srand(time(0));	
+			for(int i = v.size()-1; i > 0; --i){
+						int random = rand();
+								int randPos = random % (i+1); 
+										string temp = v[randPos];
+												v[randPos] = v[i];
+														v[i] = temp;													
+															}
+}
+
+void randPermInt(vector<int>& v){
+		srand(time(0));	
+			for(int i = v.size()-1; i > 0; --i){
+						int random = rand();
+								int randPos = random % (i+1); 
+										int temp = v[randPos];
+												v[randPos] = v[i];
+														v[i] = temp;													
+															}
+}
 
 
 

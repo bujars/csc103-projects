@@ -73,6 +73,15 @@ int main(int argc, char *argv[])
 	}
 
 	/* TODO: write me... */
+/*	if(charonly = 1){ //this means a char was inputted
+	
+	}
+	set<string> words; 
+	char c;
+	while(fread(&c, 1, 1, stdin)){
+	
+	}
+*/
 
 	return 0;
 }
