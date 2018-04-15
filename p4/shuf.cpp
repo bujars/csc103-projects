@@ -1,7 +1,7 @@
-#include <cstdio>   // printf
-#include <cstdlib>  // rand
-#include <time.h>   // time
-#include <getopt.h> // to parse long arguments.
+#include <cstdio>   /* printf*/
+#include <cstdlib>  /* rand*/
+#include <time.h>   /* time*/
+#include <getopt.h> /* to parse long arguments.*/
 #include <stdlib.h>
 #include <string>
 using std::string;
@@ -22,13 +22,11 @@ static const char* usage =
 "   -n,--head-count=N      output at most N lines.\n"
 "   --help                 show this message and exit.\n";
 
-void randPerm(vector<string>& v);
-
 void randPermString(vector<string>& v);
 void randPermInt(vector<int>& v);
 
 int main(int argc, char *argv[]) {
-	// define long options
+	/* define long options */
 	static int echo=0, rlow=0, rhigh=0;
 	static size_t count=-1;
 	bool userange = false;
@@ -39,9 +37,11 @@ int main(int argc, char *argv[]) {
 		{"help",        no_argument,       0, 'h'},
 		{0,0,0,0}
 	};
-	// process options:
+	/* process options:                   */
 	char c;
 	int opt_index = 0;
+	/* NOTE: It is here that the options get saved by the command line 
+	 * in which I can then use the variable above to filter the input/output */
 	while ((c = getopt_long(argc, argv, "ei:n:h", long_opts, &opt_index)) != -1) {
 		switch (c) {
 			case 'e':
@@ -70,6 +70,7 @@ int main(int argc, char *argv[]) {
 	 * Even -i and -e are mutally exclusive... */
 
 	/* TODO: write me... */
+<<<<<<< HEAD
 #if 0
 	vector<string> v;
 	while(optind < argc){
@@ -79,8 +80,60 @@ int main(int argc, char *argv[]) {
 	if(echo){
 		for(size_t i = 0; i < v.size(); i++){
 			cout << v[i] << "\n";
+=======
+	
+	/* NOTE:s 
+	 * Okay, on 4/3  I was confused about how the -i would work since its only integer inputs,
+	 * whereas -e is any form of input. 
+	 * From what I believe, I think the computer itself realizes that -e, -i is entered in the beginning, and 
+	 * the variables are set to either true or false.
+	 * This would then help because we can check which case is true and how to read in the input/output
+	 * and how to send it out.
+	 *
+	 * So skeiths response to my confusion on -i:
+	 * The -i excludes supplying other input. I already parsed out the range for you in the skeleton.
+	 * If you see 'userange' set to true, you just print some permutation of low/high and exit.
+	 * You can have a speical case, or you can fill a vector with the numbers written as strings
+	 * see snprintf. It should be very simple. 
+	 * 
+	 * */
+
+
+	/* Method 1 -- Try with the special cases as that will lead 
+	 * to less problems in the future,
+	 * or so I beleive.
+	 *
+	 * UPDATE:
+	 * getting a bad alloc problem which has to do with short or over memory fill
+	 * that can be from dumblicated methods and such, so i think i might 
+	 * do the vector to int conversion?....
+	 * 
+	 *
+	 * UPDATE 2:
+	 * The memory allocation problem I believe was from my 
+	 * original while loop ofr -i set as while(rlow < rhigh)
+	 * the problem was I never had those variables change so
+	 * it was constantly just adding into a vector.
+	 * My switch was to use temporary variabes as 
+	 * I dont want to change those in case I need them again.
+	 *
+	 *
+	 * */
+	
+	vector<string> s; /*vector for everthing not -i */
+	vector<int> I; /* vector of ints for -i*/
+	string n;
+	if(echo){
+		while(optind < argc){
+			s.push_back(argv[optind++]);
+>>>>>>> a55cdc7539fe75285f5762adb529e25a29a05804
 		}
+		/*randPermString(s);
+		for(size_t i = 0; i < s.size(); i++){
+			cout << s[i] << "\n";
+		}*/
 	}
+<<<<<<< HEAD
 	if((int)count > 0){
 		for(size_t i = 0; i < count; i++){
 			cout << v[i] << "\n";
@@ -109,7 +162,12 @@ int main(int argc, char *argv[]) {
 		int adder = rlow;
 		int end = rhigh;
 		while(adder <= end){	
-			I.push_back(adder++); 	
+			I.push_back(adder++); 
+		}
+	}
+	else{
+		while(getline(cin, n)){
+			s.push_back(n);
 		}
 	}
 	randPermString(s);
@@ -135,48 +193,38 @@ int main(int argc, char *argv[]) {
 			cout << I[j] << "\n";
 		}
 	}
-
-
+	else{
+		for(size_t i = 0; i < s.size(); i++){
+			cout << s[i] << "\n";
+		}
+	}
 	return 0;
-	//vector<string> words; //To store all of the user input
-
 }
 
 
-void randPerm(vector<string>& v){
+
+void randPermString(vector<string>& v){
 	srand(time(0));	
 	for(int i = v.size()-1; i > 0; --i){
 		int random = rand();
 		int randPos = random % (i+1); 
 		string temp = v[randPos];
 		v[randPos] = v[i];
-		v[i] = temp;
+		v[i] = temp;													
 	}
 }
 
-
-void randPermString(vector<string>& v){
-		srand(time(0));	
-			for(int i = v.size()-1; i > 0; --i){
-						int random = rand();
-								int randPos = random % (i+1); 
-										string temp = v[randPos];
-												v[randPos] = v[i];
-														v[i] = temp;													
-															}
-}
-
 void randPermInt(vector<int>& v){
-		srand(time(0));	
-			for(int i = v.size()-1; i > 0; --i){
-						int random = rand();
-								int randPos = random % (i+1); 
-										int temp = v[randPos];
-												v[randPos] = v[i];
-														v[i] = temp;													
-															}
+	srand(time(0));	
+	for(int i = v.size()-1; i > 0; --i){
+		int random = rand();
+		int randPos = random % (i+1); 
+		int temp = v[randPos];
+		v[randPos] = v[i];
+		v[i] = temp;													
+	}
 }
-
+>>>>>>> a55cdc7539fe75285f5762adb529e25a29a05804
 
 
 
