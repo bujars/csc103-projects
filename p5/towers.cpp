@@ -21,6 +21,8 @@ using std::endl;
 #include <getopt.h> // to parse long arguments.
 #include <cstdlib> // for atoi function
 
+void towersOfHanoi(short n, short start, short end);
+
 /* Here's a skeleton main function for processing the arguments. */
 int main(int argc, char *argv[]) {
 	// define long options
@@ -55,5 +57,28 @@ int main(int argc, char *argv[]) {
 	/* TODO: now that you have the options and arguments,
 	 * solve the puzzle. */
 
+	if(n < 0 || start < 1 || start >3 || end < 1 || end > 3)
+		return 1;
+	else
+		towersOfHanoi(n, start, end);
 	return 0;
 }
+
+/*
+ * Do all the moving until you get the very last one, or n, onto the end base.
+ * ONce that occurs, take all of the steps that you made, but this time do it on the invertred pegs. Meanging if u first step was from one to 2, this time you would be going from 2 to 3?? You start becomes the next one over??? Not sure needs more thought put into it. 
+ *
+ * There seems to be a trend where the odd ones goes to the most at right, and for even it goes to the at left one....
+ *
+ * */
+
+void towersOfHanoi(short n, short start, short end){
+	if(n == 1) return;
+	//cout<< start << "\t" << end << "\n";
+	towersOfHanoi(n-1, start, 6-(start+end));
+	cout<< start << "\t" << end << "\n";
+	towersOfHanoi(n-1, end, 6-(start+end));
+	cout<< start << "\t" << end << "\n";
+
+}
+
