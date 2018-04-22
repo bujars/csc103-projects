@@ -73,12 +73,12 @@ int main(int argc, char *argv[]) {
  * */
 
 void towersOfHanoi(short n, short start, short end){
-	if(n == 1) return;
+	if(n == 1){ cout << start << "\t" << end << "\n"; return; }
 	//cout<< start << "\t" << end << "\n";
 	towersOfHanoi(n-1, start, 6-(start+end));
 	cout<< start << "\t" << end << "\n";
-	towersOfHanoi(n-1, end, 6-(start+end));
-	cout<< start << "\t" << end << "\n";
+	towersOfHanoi(n-1, 6-(start+end), end);
+	//cout<< start << "\t" << end << "\n";
 
 }
 
