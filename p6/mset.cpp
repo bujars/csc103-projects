@@ -122,6 +122,9 @@ void mandelbrotArea::render()
 	// idea: loop through all the pixels, iterate the function figure out how
 	// quickly the point is diverging, and color it based on the result
 
+
+
+
 	// to give you some idea of what you need to do, I've drawn a nice green
 	// gradient on the screen.  You will want to set the individual pixels
 	// using the qp.drawPoint(x,y) function, instead of drawing a line.
