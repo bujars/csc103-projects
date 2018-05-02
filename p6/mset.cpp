@@ -69,7 +69,7 @@ void mandelbrotArea::refreshImage()
 void mandelbrotArea::mouseDoubleClickEvent(QMouseEvent *event)
 {
 	// TODO: write the code for the zoom operation.  You can get
-	// the mouse button from event->button() and check for 
+	// the mouse button from event->button() and check for
 	// event->button() == Qt::LeftButton, etc. to figure out what
 	// button is being pressed.
 }
