@@ -134,28 +134,30 @@ void mandelbrotArea::render()
 	unsigned long iheight = image.height();
 	double unit = 1.0 / iwidth; // on a scale of 0-1, how wide is a pixel?
 	//double unit2 = this->windowWidth/iwidth;
-	complex bef(0, 0); //note bounds start at 1 since c0 = 0. 
-	for(unsigned long i = 1; i < 1000; i++){
-		for(unsigned long j = 1; j < 750; j++){
-		complex now(((unit)*i -2), (unit)*j + 1.5);
+	//complex bef(0, 0); //note bounds start at 1 since c0 = 0. 
+	for(unsigned long i = 0; i < 1000; i++){
+		for(unsigned long j = 0; j < 750; j++){
+		complex c(-2, 1.5);
+		complex z(((unit)*i-2), (unit)*j + 1.5);
 		//complex look = bef + now; 
 		/*if(now.norm() > 2){
 			for(int it = 0; it < max)
 		}*/
 		int iteration = 0; /*This value will be used to calulcate the color stuff*/
-		while(now.norm() < 2 && iteration < this->maxIterations){
-			now = bef*bef + now; 	
+		while(z.norm() < 2 && iteration < this->maxIterations){
+			z = z*z + c; 	
 			//because now is the current value that we are looking at
 			iteration++;
 		}
-		qc.setRgbF(iteration, sqrt(iteration), iteration);
+		qc.setRgbF(unit*iteration, sqrt(unit*iteration), unit*iteration);
 		qpen.setColor(qc);
 		qp.setPen(qpen);
-		qp.drawPoint(now.real, now.imag);
-		bef = now;
+		qp.drawPoint(i, j);
+		//bef = now;
 		
 		}
 	}
+	//bef = complex(0, 0);
 	
 	
 	/*for (unsigned long i = 0; i < iwidth; i++) {
