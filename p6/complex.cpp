@@ -88,16 +88,23 @@ complex operator-(const complex& w)
 complex operator-(const complex& w, const complex& z)
 {
 	/* TODO: write this */
-	complex retVal;
+	/*complex retVal;
 	retVal.real = w.real - z.real;
 	retVal.imag = w.imag - z.imag;
-	return retVal;
+	return retVal;*/
+	return w+(-z);
 }
 
 complex operator*(const complex& w, const complex& z)
 {
 	/* TODO: write this */
-	return complex(w.real*z.real, w.imag*z.imag); 
+	
+	complex retVal;
+	retVal.real = (w.real*z.real) - (w.imag*z.imag);
+	retVal.imag = (w.real*z.imag) + (w.imag*z.real);
+	return retVal;
+	
+	//return complex(w.real*z.real, w.imag*z.imag); 
 	//Note written same way I just did it to be simpler
 }
 
