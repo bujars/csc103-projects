@@ -125,13 +125,26 @@ void mandelbrotArea::mouseDoubleClickEvent(QMouseEvent *event)
 	}
 	else if(event->button() == Qt::RightButton){
 		windowWidth*=2;
-		llCoord.real = llCoord.real*2 - but.real;
-		llCoord.imag = llCoord.imag*2 - but.imag;
+		llCoord.real = but.real - windowWidth/2; /*NOTE how this is still windowWidth/2, this is because if we doube the size of the window, we still want one cooridate to be one half of it. Say our width was 4 and we go to 8, we want our coord to be (-4, 4) not (-8, 8).....assuming that we clicked on (0,0) 
+		Try to see if you can locate you old notes where you drew it out or redraw the iamge.
+		*/
+		llCoord.imag = but.imag + windowWidth/2; 
+
+		/*llCoord.real = llCoord.real*2 - but.real;
+		llCoord.imag = llCoord.imag*2 - but.imag;*/
 		//windowWidth/=2;
-		render();
+		render(); /*NOTE not really sure if right button works since I cant test it out on my laptop. But I'm assuming it does because here Im just increasing the windowWidth and then the coordiates get scaled the same way. Basically the recerse of what I had.*/
 	}
-	//windowWidth/=iwidth; //Because when you are clicking you want to resize the window to your "new" "box"
+	/*windowWidth/=iwidth; */ /*Because when you are clicking you want to resize the window to your "new" "box" */
+	/*NOTE The above line doesn't acutally work. What I was attempting was to scale the window by the coords, but in realizty iwidth doesn't change unless window changes so it wasn't doing anything
+	 * Additioanlly, note that in my current functions I adjust the width according to the type of zoom. If left, half it, if right double it. This is because windowWidth here plays as the length of the image that is presented to the user. It basically rescales the sceen. Additioanlly, the coordinates line up to the windowWidth.
+	 *
+	 * Don't really know how to reexplain it as it was done on paper. But lets say the user clicks on (0,0) and ur current windowwidth is 4. If left click, we want to zoom in, so we know the windowWidth now because 2, as it looks in deeper. Then because this happens, the left coord as we know it now comes in by a sclae of 2, as it should. Then we take the (0,0) coord and subtract the windowWidth change because 0,0 - 1 = (-1, + 1) as our new left cooridate should be ==> if originalyly (-2, 2)*/
+
+
+
 }
+
 
 void mandelbrotArea::mousePressEvent(QMouseEvent *event)
 {
