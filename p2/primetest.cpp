@@ -32,10 +32,14 @@ To chcek if a number is prime, we should be able to see if any of the number is 
 		int isPrime = 1;
 		int divisor = 2;
 		if(n<=1)
-				return 0;
-		if(n==2)
-			return 1;
-		while(divisor < n && isPrime){
+			isPrime = 0;
+		//cout << 0 << "\n";
+			//return 0;
+		else if(n==2)
+			isPrime = 1;
+		//cout << 1 << "\n";
+			//return 1;
+		else while(divisor < n && isPrime){
 			if(n%divisor == 0)
 					isPrime = 0;
 			divisor++;
